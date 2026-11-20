@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elevated Supply</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050805;--fg:#fff;--mute:#9aa89a;--g:#19e66b;--g2:#0a8f3f;--card:#0d130d;--line:#1d2a1d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3,.big{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-weight:400}
+nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 5vw;backdrop-filter:blur(14px);background:rgba(5,8,5,.85);border-bottom:1px solid var(--line)}
+nav b{font-family:Anton,Impact;font-size:20px;letter-spacing:.05em;white-space:nowrap}nav b span{color:var(--g)}
+nav div{display:flex;align-items:center;gap:20px}nav a{color:var(--fg);text-decoration:none;font-size:14px;opacity:.8}
+@media(max-width:760px){nav a:not(.btn){display:none}}
+.btn{display:inline-block;background:var(--g);color:#031a0b;font-weight:800;padding:14px 28px;border-radius:99px;text-decoration:none;border:0;cursor:pointer;font-size:16px;transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:scale(1.05);box-shadow:0 0 40px rgba(25,230,107,.5)}
+.btn.sm{padding:9px 18px;font-size:14px;color:#031a0b;opacity:1}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--fg)}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;isolation:isolate;padding:110px 5vw 70px}
+.sun{position:absolute;z-index:-2;width:min(70vw,520px);aspect-ratio:1;border-radius:50%;background:linear-gradient(180deg,#e9ffd9,var(--g) 45%,var(--g2));bottom:-12%;left:50%;transform:translateX(-50%);opacity:.55;-webkit-mask:repeating-linear-gradient(180deg,#000 0 14px,transparent 14px 20px);mask:repeating-linear-gradient(180deg,#000 0 14px,transparent 14px 20px)}
+.grid{position:absolute;z-index:-1;left:-50%;right:-50%;bottom:0;height:35%;background:linear-gradient(var(--g) 1px,transparent 1px) 0 0/100% 48px,linear-gradient(90deg,var(--g) 1px,transparent 1px) 0 0/60px 100%;opacity:.15;transform:perspective(300px) rotateX(60deg);transform-origin:bottom;animation:mv 4s linear infinite}
+@keyframes mv{to{background-position:0 48px,0 0}}
+#c{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.rk{position:fixed;left:0;top:28%;z-index:5;width:130px;pointer-events:none;transform:translateX(-200px);animation:fly 14s linear infinite 2s;filter:drop-shadow(0 0 12px rgba(25,230,107,.6))}
+@keyframes fly{0%{transform:translateX(-200px) translateY(0) rotate(-5deg)}25%{transform:translateX(30vw) translateY(-30px) rotate(3deg)}55%,100%{transform:translateX(calc(100vw + 200px)) translateY(25px) rotate(-3deg)}}
+@media(max-width:600px){.rk{width:96px;top:22%}}
+.smk{position:fixed;inset:0;z-index:60;pointer-events:none;overflow:hidden}
+.pf{position:absolute;bottom:-200px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.75),rgba(180,255,205,.35) 45%,transparent 70%);filter:blur(18px);opacity:0;animation:rise var(--d) ease-out var(--w) forwards}
+@keyframes rise{0%{transform:translate(0,0) scale(.6);opacity:0}20%{opacity:.85}100%{transform:translate(var(--dx),-120vh) scale(2);opacity:0}}
+.lab{position:relative;margin-top:36px;border:1px solid var(--line);border-radius:28px;background:radial-gradient(60% 60% at 50% 55%,rgba(25,230,107,.2),transparent);overflow:hidden}
+#m{width:100%;height:min(66vh,460px);display:block;cursor:grab;touch-action:pan-y}
+.hint{position:absolute;top:16px;left:0;right:0;text-align:center;color:var(--mute);font-size:12px;letter-spacing:.2em;text-transform:uppercase;pointer-events:none}
+.tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:0 14px 18px}
+.tabs button{background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:99px;padding:10px 18px;font-weight:600;cursor:pointer;font-size:14px}
+.tabs button.on{background:var(--g);color:#031a0b;border-color:var(--g)}
+.cd{margin:10px 0 0;font-family:Anton;font-size:20px;color:var(--mute);text-transform:uppercase}.cd b{color:var(--g);font-size:34px;letter-spacing:.05em;font-weight:400}
+.stk{color:var(--g);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.add:disabled{background:#2a2a2a;color:#888;cursor:not-allowed}
+.card{cursor:pointer}
+.pm{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s}
+.pm.on{opacity:1;pointer-events:auto}
+.pbox{position:relative;width:min(900px,100%);max-height:90vh;overflow:auto;background:#0a0f0a;border:1px solid var(--g);border-radius:28px;display:grid;grid-template-columns:1fr 1fr;transform:translateY(30px) scale(.97);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.pm.on .pbox{transform:none}
+.pimg{display:grid;place-items:center;min-height:300px;background:radial-gradient(70% 70% at 50% 55%,rgba(25,230,107,.22),transparent)}
+.pimg svg{width:55%;max-width:240px}.pimg img{max-width:100%;max-height:420px;object-fit:contain}
+.pbody{padding:34px 30px}.pbody h3{font-size:40px;margin:10px 0 4px}.ppr{font-family:Anton;font-size:34px;color:var(--g)}
+.pbody .lead{font-size:16px;margin:14px 0}
+.sp{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}.sp span{color:var(--mute)}
+.pbody .btn{width:100%;margin-top:20px}.pbody .btn:disabled{background:#2a2a2a;color:#888;cursor:not-allowed}
+#px{position:absolute;top:12px;right:14px;z-index:2;background:rgba(0,0,0,.55);border:0;color:var(--fg);font-size:22px;width:38px;height:38px;border-radius:50%;cursor:pointer}
+@media(max-width:700px){.pbox{grid-template-columns:1fr}.pimg{min-height:220px}}
+#cart{cursor:pointer}
+#cart2{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;background:#fff;color:#031a0b;font-weight:800;border-radius:99px;padding:12px 20px;box-shadow:0 8px 30px rgba(0,0,0,.5);display:none;cursor:pointer}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:80;opacity:0;pointer-events:none;transition:opacity .3s}
+#dr{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);z-index:90;background:#0a0f0a;border-left:1px solid var(--g);transform:translateX(100%);transition:transform .4s cubic-bezier(.2,.7,.2,1);overflow-y:auto;padding:calc(20px + env(safe-area-inset-top,0px)) 22px calc(30px + env(safe-area-inset-bottom,0px))}
+.dopen #ov{opacity:1;pointer-events:auto}.dopen #dr{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center}.dh h3{font-size:30px}.dh button{background:none;border:0;color:var(--fg);font-size:22px;cursor:pointer}
+.ci{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}.ci div{flex:1}.ci b{font-size:15px}.ci small{display:block;color:var(--mute)}
+.q{display:flex;align-items:center;gap:8px}.q button{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
+.tot{display:flex;justify-content:space-between;padding:6px 0;color:var(--mute)}.tot.big2{color:var(--fg);font-size:20px;border-top:1px solid var(--line);margin-top:6px;padding-top:12px}.tot.big2 b{color:var(--g)}
+.ck h4{margin-top:22px;font-family:Anton;font-weight:400;font-size:20px;text-transform:uppercase}
+.ck input,.ck select{width:100%;background:#0d130d;border:1px solid var(--line);color:var(--fg);padding:13px 16px;border-radius:14px;font-size:16px;margin-top:10px}
+.ck .btn{width:100%;margin-top:18px}
+.tag{display:inline-block;border:1px solid var(--g);color:var(--g);padding:6px 16px;border-radius:99px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:22px}
+.hero h1{font-size:clamp(52px,13vw,170px);line-height:.95;text-shadow:0 0 60px rgba(25,230,107,.35)}
+.hero h1 em{font-style:normal;color:var(--g)}
+.hero p{max-width:540px;margin:24px auto 30px;color:var(--mute);font-size:18px;line-height:1.5}
+.hero .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.marq{overflow:hidden;background:var(--g);color:#031a0b;padding:12px 0;white-space:nowrap}
+.marq div{display:inline-block;animation:q 24s linear infinite;font-family:Anton,Impact;font-size:24px;text-transform:uppercase}
+@keyframes q{to{transform:translateX(-50%)}}
+section{padding:100px 5vw 20px;max-width:1200px;margin:auto}
+h2{font-size:clamp(40px,7vw,96px);line-height:1;margin-bottom:16px}
+h2 em{font-style:normal;color:var(--g)}
+.lead{color:var(--mute);font-size:18px;max-width:620px;line-height:1.55}
+.rv{opacity:0;transform:translateY(50px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:40px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .3s}
+.card:hover{border-color:var(--g);transform:translateY(-6px)}
+.art{height:170px;display:grid;place-items:center;background:radial-gradient(70% 70% at 50% 60%,rgba(25,230,107,.18),transparent)}
+.art svg{width:96px;height:96px;transition:transform .5s}.card:hover .art svg{transform:scale(1.12) rotate(-5deg)}
+.info{padding:18px 20px 22px;display:flex;flex-direction:column;gap:6px;flex:1}
+.info b{font-family:Anton;font-size:21px;text-transform:uppercase;font-weight:400}
+.info span{color:var(--mute);font-size:13px;line-height:1.4;flex:1}
+.info .p{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:800}
+.add{background:var(--g);color:#031a0b;border:0;border-radius:99px;padding:8px 16px;font-weight:800;cursor:pointer}
+.note{margin-top:20px;font-size:13px;color:var(--mute)}
+.room{margin:110px 5vw 0;border:1px solid var(--g);border-radius:36px;padding:60px 5vw;background:linear-gradient(160deg,#0f2a17,#050805 70%);max-width:1200px;margin-inline:auto;position:relative}
+.room .in{max-width:1100px;margin:auto}
+.lock{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.lock input{background:#0d130d;border:1px solid var(--line);color:var(--fg);padding:14px 20px;border-radius:99px;font-size:16px;min-width:min(260px,100%);flex:1}
+.lock input:focus{outline:2px solid var(--g)}
+#err{color:#ff6b6b;margin-top:12px;min-height:22px}
+#vault{display:none}.open #vault{display:block}.open #locked{display:none}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:36px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px;display:flex;flex-direction:column}
+.plan.pop{border-color:var(--g)}
+.plan h3{font-size:30px}.plan .pr{font-family:Anton;font-size:52px;margin:6px 0}.plan .pr small{font:400 14px Inter;color:var(--mute)}
+.plan ul{list-style:none;padding:0;margin:14px 0 22px;flex:1}.plan li{padding:9px 0;border-top:1px solid var(--line);color:#d6e2d6;font-size:15px}.plan li:before{content:"✓ ";color:var(--g);font-weight:800}
+footer{margin-top:110px;border-top:1px solid var(--line);padding:36px 5vw;color:var(--mute);font-size:13px;text-align:center;line-height:1.7}
+#cart{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--g);color:#031a0b;font-weight:800;border-radius:99px;padding:12px 20px;box-shadow:0 8px 30px rgba(0,0,0,.5);display:none}
+#gate{position:fixed;inset:0;z-index:100;background:#050805;display:grid;place-items:center;text-align:center;padding:24px;transition:opacity .6s}
+#gate.off{opacity:0;pointer-events:none}
+#gate h2{font-size:clamp(40px,9vw,90px)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style></head><body>
+<div id="gate"><div><div class="tag">Adults only</div><h2>Are you <em>18+</em>?</h2><p class="lead" style="margin:0 auto 28px">You must be 18 or older to enter Elevated Supply.</p><button class="btn" id="yes">I’m 18 or older</button> <a class="btn ghost" href="https://www.google.com">Leave</a></div></div>
+<nav><b>ELEVATED <span>SUPPLY</span></b><div><a href="#vapes">Vapes</a><a href="#edibles">Edibles</a><a href="#daily">Daily</a><a href="#room">DRS Room</a><a class="btn sm" href="#room">Join</a></div></nav>
+<header class="hero"><div class="grid"></div><canvas id="c"></canvas>
+<div class="tag">Est. 2026 · 18+</div>
+<h1>Elevated<br><em>Supply</em></h1>
+<p>Flavour vapes, gummies and everyday smoking gear. Unlock the DRS Room for monthly drops.</p>
+<div class="row"><a class="btn" href="#vapes">Shop now</a><a class="btn ghost" href="#room">DRS Room</a></div></header>
+<div class="marq"><div id="mq"></div></div>
+
+<section id="vapes"><h2 class="rv">Flavour <em>vapes.</em></h2><p class="lead rv">Cannabis-inspired flavour profiles. No cannabis, no THC.</p><div class="cards" data-k="vapes"></div></section>
+<section id="edibles"><h2 class="rv">Gummies &amp; <em>edibles.</em></h2><p class="lead rv">Sweet, cannabis-free and open to everyone.</p><div class="cards" data-k="edibles"></div></section>
+<section id="daily"><h2 class="rv">Daily <em>gear.</em></h2><p class="lead rv">Papers, bongs, pipes and the accessories you reach for every day.</p><div class="cards" data-k="daily"></div></section>
+
+<section id="lab"><h2 class="rv">3D <em>lab.</em></h2><p class="lead rv">Grab it and spin it. Tap a tab to switch pieces.</p><div class="lab rv"><div class="hint">Drag to rotate</div><canvas id="m"></canvas><div class="tabs"><button class="on" data-m="vape">Vape pen</button><button data-m="bong">Bong</button><button data-m="pipe">Pipe</button><button data-m="rig">Glass rig</button></div></div></section>
+<div class="room rv" id="room"><div class="in">
+<div class="tag">Yearly members only</div><h2>The <em>DRS Room.</em></h2>
+<p class="lead">A private area of the site for yearly members, with its own monthly drops and its own cart.</p>
+<div id="locked"><div class="lock"><input id="code" placeholder="Enter your access key" aria-label="Member code"><button class="btn" id="enter">Enter</button></div><div id="err"></div>
+<div style="margin-top:34px;border-top:1px solid var(--line);padding-top:30px"><h3 style="font-size:32px">Get your access key</h3><p class="lead" style="font-size:16px;margin-top:8px">Yearly membership: <b style="color:var(--g)">R50 / year</b>. Fill in your details, pay, and we’ll send you your unique access key.</p><div class="lock"><input id="fn" placeholder="Name" aria-label="Name"><input id="sn" placeholder="Surname" aria-label="Surname"><input id="em" type="email" placeholder="Email" aria-label="Email"></div><button class="btn" id="sub" style="margin-top:14px">Join for R50 / year</button><p class="note" id="jm"></p><p class="note">Demo access key: ELEVATED</p></div>
+</div>
+<div id="vault"><div class="tag" style="margin-top:20px">Welcome to the DRS Room</div><h3 style="font-size:34px">This month’s drop</h3><div class="cd">Next drop in <b id="cd">--:--:--</b></div><p class="note" style="font-size:15px">These are placeholder products for now. Drops are announced monthly.</p><div class="cards" data-k="drops"></div><p class="note">DRS Room items go into their own separate cart (bottom left).</p></div>
+</div></div>
+
+<footer>© 2026 Elevated Supply. Vapes are cannabis-flavoured and contain no cannabis or THC. Products are for adults 18+ only.<br>Please follow South African law and enjoy responsibly.</footer>
+<div class="rk" aria-hidden="true"><svg viewBox="0 -8 130 78"><path d="M0 40q12-9 24-4v8q-12 5-24-4z" fill="#ff9d00"/><path d="M8 40q8-5 16-2v4q-8 3-16-2z" fill="#ffe14a"/><path d="M24 32h58q20 3 30 8q-10 5-30 8H24z" fill="#fff"/><path d="M84 33q18 2 28 7q-10 5-28 7z" fill="#19e66b"/><circle cx="62" cy="41" r="6" fill="#050805" stroke="#19e66b" stroke-width="2"/><path d="M30 32l-10-14h16l8 14z" fill="#19e66b"/><path d="M30 48l-10 12h16l8-12z" fill="#19e66b"/><path d="M52 32l8-4 12 4" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M58 29L60 15" stroke="#19e66b" stroke-width="6" stroke-linecap="round"/><path d="M60 19l13-3" stroke="#ffd9a8" stroke-width="3" stroke-linecap="round"/><circle cx="61" cy="8" r="7" fill="#ffd9a8"/><rect x="61" y="5" width="9" height="3.5" rx="1" fill="#050805"/><path d="M66 12l12-3" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="79.5" cy="8.6" r="1.8" fill="#ff5a1f"/><circle cx="85" cy="3" r="2.5" fill="#fff" opacity=".55"/><circle cx="91" cy="-2" r="3.2" fill="#fff" opacity=".35"/></svg></div>
+<div class="pm" id="pm"><div class="pbox" role="dialog" aria-modal="true" aria-label="Product details"><button id="px" aria-label="Close">✕</button><div class="pimg" id="pimg"></div><div class="pbody"><div class="tag" id="pk"></div><h3 id="pn"></h3><div class="ppr" id="pp"></div><p class="lead" id="pd"></p><div id="ps"></div><button class="btn" id="pa">Add to cart</button></div></div></div>
+<div id="cart" role="button" tabindex="0"></div><div id="cart2" role="button" tabindex="0"></div>
+<div id="ov"></div><aside id="dr" aria-label="Cart"><div class="dh"><h3 id="dt">Your cart</h3><button id="x" aria-label="Close">✕</button></div><div id="items"></div><div class="tot"><span>Subtotal</span><b id="st">R0</b></div><div class="tot"><span>Shipping (free over R800)</span><b id="sh">R0</b></div><div class="tot big2"><span>Total</span><b id="tt">R0</b></div><div class="ck"><h4>Delivery details</h4><input id="cn" placeholder="Name" autocomplete="given-name"><input id="cs" placeholder="Surname" autocomplete="family-name"><input id="ce" type="email" placeholder="Email" autocomplete="email"><input id="cp" type="tel" placeholder="Phone number" autocomplete="tel"><input id="ca" placeholder="Street address" autocomplete="street-address"><input id="cc" placeholder="City / suburb"><select id="cv" aria-label="Province"><option>KwaZulu-Natal</option><option>Gauteng</option><option>Western Cape</option><option>Eastern Cape</option><option>Free State</option><option>Limpopo</option><option>Mpumalanga</option><option>North West</option><option>Northern Cape</option></select><input id="cz" placeholder="Postal code" inputmode="numeric"><button class="btn" id="po">Place order</button><p class="note" id="om"></p></div></aside>
+<script>
+(function(){
+var S={
+vape:'<rect x="38" y="8" width="24" height="84" rx="12" fill="none" stroke="#fff" stroke-width="4"/><rect x="38" y="52" width="24" height="40" rx="12" fill="#19e66b"/><circle cx="50" cy="24" r="4" fill="#fff"/>',
+gum:'<circle cx="50" cy="50" r="30" fill="#19e66b"/><circle cx="40" cy="40" r="8" fill="#fff" opacity=".5"/><path d="M26 66c14 12 34 12 48 0" stroke="#031a0b" stroke-width="4" fill="none"/>',
+pap:'<rect x="22" y="30" width="56" height="44" rx="6" fill="none" stroke="#fff" stroke-width="4"/><path d="M22 46h56" stroke="#19e66b" stroke-width="6"/>',
+bong:'<path d="M42 8h16v40l16 20v22H26V68l16-20z" fill="none" stroke="#19e66b" stroke-width="4" stroke-linejoin="round"/><circle cx="50" cy="76" r="5" fill="#fff"/>',
+pipe:'<path d="M20 30h14v28c0 12 28 12 28 0V44h18" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/><circle cx="27" cy="22" r="5" fill="#19e66b"/>',
+glass:'<path d="M30 90V50l-6-14 26-24 26 24-6 14v40z" fill="none" stroke="#19e66b" stroke-width="4" stroke-linejoin="round"/><path d="M38 60h24" stroke="#fff" stroke-width="4"/>',
+tee:'<path d="M30 14l-22 12 8 16 10-4v46h48V38l10 4 8-16-22-12c-4 8-26 8-30 0z" fill="#fff"/><circle cx="50" cy="52" r="9" fill="#19e66b"/>'};
+var D={
+vapes:[['Mint Haze','Cool mint with a green terpene finish','R280','vape'],['Citrus Kush Flavour','Sweet citrus and earthy notes','R280','vape'],['Berry Cloud','Mixed berry, smooth and light','R260','vape'],['Sour Diesel Flavour','Sharp, tangy, fuel-style flavour','R280','vape']],
+edibles:[['Green Gummies','Sour apple gummies, 10 pack','R120','gum'],['Berry Bites','Mixed berry gummies, 10 pack','R120','gum'],['Chill Chews','Soft chews, tropical, 12 pack','R140','gum']],
+daily:[['Rolling Papers','King size, ultra thin, 3 booklets','R45','pap'],['Glass Bong','Beaker base, 30cm','R650','bong'],['Spoon Pipe','Hand-blown glass, assorted colours','R180','pipe'],['Grinder','4-piece aluminium','R190','pap']],
+drops:[['Product 1','DRS Room exclusive. Details coming soon.','R350','glass'],['Product 2','DRS Room exclusive. Details coming soon.','R620','tee']]};
+var n=0,cart=document.getElementById('cart');
+document.querySelectorAll('.cards').forEach(function(c){c.innerHTML=D[c.dataset.k].map(function(p){return '<div class="card rv"><div class="art"><svg viewBox="0 0 100 100">'+S[p[3]]+'</svg></div><div class="info"><b>'+p[0]+'</b><span>'+p[1]+'</span><div class="p">'+p[2]+'<button class="add">Add</button></div></div></div>'}).join('')});
+document.addEventListener('click',function(e){if(e.target.classList.contains('add')){var sk=e.target.closest('.info').querySelector('.stk');if(sk){var q=parseInt(sk.textContent.replace(/\D/g,''),10)-1;if(q<0)return;sk.textContent=q?'Only '+q+' left':'SOLD OUT';if(!q){e.target.disabled=true;e.target.textContent='Sold out'}}n++;addItem(e.target)}});
+document.getElementById('mq').textContent=new Array(5).join('Flavour vapes ★ Gummies ★ Daily gear ★ DRS Room ★ ');
+var g=document.getElementById('gate');try{if(sessionStorage.getItem('es18'))g.classList.add('off')}catch(e){}
+document.getElementById('yes').onclick=function(){g.classList.add('off');try{sessionStorage.setItem('es18','1')}catch(e){}};
+function smoke(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;var c=document.createElement('div');c.className='smk';for(var i=0;i<130;i++){var p=document.createElement('div'),z=200+Math.random()*340;p.className='pf';p.style.cssText='left:'+(Math.random()*110-5)+'%;width:'+z+'px;height:'+z+'px;--d:'+(5+Math.random()*4)+'s;--w:'+(Math.random()*2.5)+'s;--dx:'+(Math.random()*160-80)+'px';if(i%4==0)p.style.background='radial-gradient(circle,rgba(25,230,107,.55),transparent 70%)';c.appendChild(p)}document.body.appendChild(c);setTimeout(function(){c.remove()},12000)}
+document.getElementById('enter').onclick=function(){var v=document.getElementById('code').value.trim().toUpperCase();if(v==='ELEVATED'){smoke();document.getElementById('room').classList.add('open');document.querySelectorAll('#vault .rv').forEach(function(x){x.classList.add('on')})}else document.getElementById('err').textContent='Invalid member code.'};
+document.getElementById('sub').onclick=function(){var a=['fn','sn','em'].map(function(i){return document.getElementById(i).value.trim()}),o=document.getElementById('jm');if(!a[0]||!a[1]||!/^\S+@\S+\.\S+$/.test(a[2])){o.style.color='#ff6b6b';o.textContent='Please enter your name, surname and a valid email.';return}o.style.color='#19e66b';o.textContent='Thanks '+a[0]+'! Payment (R50 / year) will open here, then your unique access key is emailed to you.'};
+var io=new IntersectionObserver(function(es){es.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('on')},(i%4)*80);io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(function(x){io.observe(x)});
+})();
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>
+(function(){try{
+var T=window.THREE,cv=document.getElementById('c'),hero=cv.parentNode;
+var r=new T.WebGLRenderer({canvas:cv,alpha:true,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));
+var s=new T.Scene(),cam=new T.PerspectiveCamera(50,1,.1,100);cam.position.z=7;
+var G=new T.Group();s.add(G);
+var wire=new T.MeshBasicMaterial({color:0x19e66b,wireframe:true,transparent:true,opacity:.5});
+G.add(new T.Mesh(new T.TorusKnotGeometry(1.5,.45,160,24),wire));
+G.add(new T.Mesh(new T.TorusKnotGeometry(1.5,.42,160,24),new T.MeshBasicMaterial({color:0x050805})));
+var fl=[];for(var i=0;i<9;i++){var m=new T.Mesh(i%2?new T.IcosahedronGeometry(.35,0):new T.OctahedronGeometry(.4,0),new T.MeshBasicMaterial({color:i%3?0xffffff:0x19e66b,wireframe:true,transparent:true,opacity:.7}));var a=i/9*6.283;m.position.set(Math.cos(a)*4.2,(Math.random()-.5)*4,Math.sin(a)*2-1);m.userData={a:a,s:.2+Math.random()*.4};s.add(m);fl.push(m)}
+var N=600,pa=new Float32Array(N*3);for(i=0;i<N*3;i++)pa[i]=(Math.random()-.5)*22;
+var pg=new T.BufferGeometry();pg.setAttribute('position',new T.BufferAttribute(pa,3));
+var pts=new T.Points(pg,new T.PointsMaterial({color:0x19e66b,size:.04,transparent:true,opacity:.8}));s.add(pts);
+function rs(){var w=hero.clientWidth,h=hero.clientHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();G.scale.setScalar(w>800?1.25:.85)}
+rs();addEventListener('resize',rs);
+var mx=0,my=0,vis=true,calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(hero);
+function tick(t){requestAnimationFrame(tick);if(!vis)return;t*=.001;var sy=Math.min(scrollY,900);
+G.rotation.y=t*.35+mx*1.2;G.rotation.x=t*.2+my*.8+sy*.002;G.position.y=-sy*.004;
+fl.forEach(function(m){var d=m.userData;m.rotation.x+=.01;m.rotation.y+=.013;m.position.y+=Math.sin(t*d.s*3+d.a)*.004});
+pts.rotation.y=t*.03+mx*.3;pts.rotation.x=my*.2;cam.position.x+=(mx*1.2-cam.position.x)*.05;cam.position.y+=(-my*.8-cam.position.y)*.05;cam.lookAt(0,0,0);r.render(s,cam)}
+if(calm){r.render(s,cam)}else requestAnimationFrame(tick);
+document.addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;var c=e.target.closest&&e.target.closest('.card');if(!c)return;var b=c.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;c.style.transform='perspective(700px) rotateY('+x*14+'deg) rotateX('+(-y*14)+'deg) translateY(-6px)'});
+document.addEventListener('pointerout',function(e){var c=e.target.closest&&e.target.closest('.card');if(c)c.style.transform=''});
+}catch(err){}})();
+</script><script>
+(function(){try{
+var end=Date.now()+(2*3600+14*60+33)*1000;function pd(x){return(x<10?'0':'')+x}
+setInterval(function(){var d=Math.max(0,Math.floor((end-Date.now())/1000)),e=document.getElementById('cd');if(e)e.textContent=d?pd(Math.floor(d/3600))+':'+pd(Math.floor(d%3600/60))+':'+pd(d%60):'LIVE NOW'},1000);
+document.querySelectorAll('[data-k=drops] .info').forEach(function(x,i){var b=document.createElement('div');b.className='stk';b.textContent='Only '+([7,12,25][i]||9)+' left';x.insertBefore(b,x.querySelector('.p'))});
+}catch(err){}})();
+(function(){try{
+var T=window.THREE,cv=document.getElementById('m'),r=new T.WebGLRenderer({canvas:cv,alpha:true,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));
+var s=new T.Scene(),cam=new T.PerspectiveCamera(40,1,.1,100);cam.position.set(0,0,10);
+s.add(new T.AmbientLight(0xffffff,.7));var dl=new T.DirectionalLight(0xffffff,1.2);dl.position.set(3,5,6);s.add(dl);var gl=new T.PointLight(0x19e66b,2,24);gl.position.set(-4,-1,5);s.add(gl);
+function V(a){return a.map(function(p){return new T.Vector2(p[0],p[1])})}
+function mk(geo,col,op){var g=new T.Group();g.add(new T.Mesh(geo,new T.MeshStandardMaterial({color:col,transparent:true,opacity:op,roughness:.25,metalness:.3})));g.add(new T.LineSegments(new T.EdgesGeometry(geo,20),new T.LineBasicMaterial({color:0x19e66b})));return g}
+function cy(a,b,h,c,y){var m=mk(new T.CylinderGeometry(a,b,h,32),c,1);m.position.y=y;return m}
+var M={
+vape:function(){var g=new T.Group();g.add(cy(.5,.5,3.4,0x111111,0));g.add(cy(.28,.4,1,0xffffff,2.2));g.add(cy(.53,.53,.3,0x19e66b,.7));g.add(cy(.53,.53,.15,0x19e66b,-1.4));return g},
+bong:function(){return mk(new T.LatheGeometry(V([[0,-2],[1.3,-1.8],[1.8,-.9],[1.7,0],[1.1,.8],[.5,1.3],[.42,2.3],[.62,2.7],[.55,2.8]]),40),0x19e66b,.4)},
+pipe:function(){var g=new T.Group(),c=new T.CatmullRomCurve3([new T.Vector3(-2.2,.9,0),new T.Vector3(-1.2,-.4,0),new T.Vector3(.2,-.8,0),new T.Vector3(1.3,-.2,0),new T.Vector3(1.6,1,0)]);g.add(mk(new T.TubeGeometry(c,40,.3,16),0xffffff,.6));var b=mk(new T.LatheGeometry(V([[0,-.3],[.6,-.2],[.8,.4],[.7,.8]]),32),0x19e66b,.7);b.position.set(1.7,.8,0);g.add(b);return g},
+rig:function(){return mk(new T.LatheGeometry(V([[0,-2.2],[1.5,-2.1],[1.6,-1.7],[.6,-1.3],[1.3,-.6],[.7,0],[1.2,.6],[.5,1.2],[.5,2],[.9,2.2],[.8,2.3]]),48),0x19e66b,.45)}};
+var cur,ry=0,rx=.2,dr=false,lx=0,ly=0,vis=false,W=0,calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function show(k){if(cur)s.remove(cur);cur=M[k]();s.add(cur);document.querySelectorAll('.tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.m===k)})}
+show('vape');
+document.querySelector('.tabs').addEventListener('click',function(e){if(e.target.dataset.m)show(e.target.dataset.m)});
+cv.addEventListener('pointerdown',function(e){dr=true;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId);cv.style.cursor='grabbing'});
+cv.addEventListener('pointermove',function(e){if(!dr)return;ry+=(e.clientX-lx)*.012;rx=Math.max(-1,Math.min(1,rx+(e.clientY-ly)*.008));lx=e.clientX;ly=e.clientY});
+['pointerup','pointercancel'].forEach(function(n){cv.addEventListener(n,function(){dr=false;cv.style.cursor='grab'})});
+new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(cv);
+function tick(){requestAnimationFrame(tick);if(!vis)return;if(cv.clientWidth!==W){W=cv.clientWidth;r.setSize(W,cv.clientHeight,false);cam.aspect=W/cv.clientHeight;cam.updateProjectionMatrix()}
+if(!dr&&!calm)ry+=.008;cur.rotation.set(rx,ry,0);r.render(s,cam)}
+tick();
+}catch(err){}})();
+</script><script>
+(function(){
+var carts={main:[],drz:[]},mode='main',items=carts.main,$=function(i){return document.getElementById(i)};
+document.querySelectorAll('[data-k=drops] .add').forEach(function(b){b.classList.add('dadd')});
+function R(n){return 'R'+String(n).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
+function render(){var c=items.reduce(function(a,i){return a+i.q},0),st=items.reduce(function(a,i){return a+i.q*i.p},0),sh=st?(st>=800?0:80):0;
+var f1=function(a,i){return a+i.q},cm=carts.main.reduce(f1,0),cd=carts.drz.reduce(f1,0);$('cart').style.display=cm?'block':'none';$('cart').textContent='Cart \u00b7 '+cm+' item'+(cm>1?'s':'');$('cart2').style.display=cd?'block':'none';$('cart2').textContent='DRS cart \u00b7 '+cd+' item'+(cd>1?'s':'');
+$('items').innerHTML=items.length?items.map(function(i,x){return '<div class="ci"><div><b>'+i.n+'</b><small>'+R(i.p)+' each</small></div><span class="q"><button data-d="'+x+'" aria-label="Less">\u2212</button>'+i.q+'<button data-u="'+x+'" aria-label="More">+</button></span><b>'+R(i.p*i.q)+'</b></div>'}).join(''):'<p class="note">Your cart is empty.</p>';
+$('st').textContent=R(st);$('sh').textContent=st?(sh?R(sh):'FREE'):'R0';$('tt').textContent=R(st+sh)}
+window.addItem=function(btn){var inf=btn.closest('.info'),n=inf.querySelector('b').textContent,p=parseInt(inf.querySelector('.p').firstChild.textContent.replace(/\D/g,''),10),its=btn.classList.contains('dadd')?carts.drz:carts.main,f=its.filter(function(i){return i.n===n})[0];if(f)f.q++;else its.push({n:n,p:p,q:1});render()};
+$('items').addEventListener('click',function(e){var d=e.target.dataset;if(d.d!==undefined){if(--items[d.d].q<1)items.splice(d.d,1)}else if(d.u!==undefined)items[d.u].q++;else return;render()});
+function op(m){mode=m||'main';items=carts[mode];$('dt').textContent=mode==='drz'?'Your DRS Room cart':'Your cart';document.body.classList.add('dopen');render()}function cl(){document.body.classList.remove('dopen')}
+$('cart').onclick=function(){op('main')};$('cart').onkeydown=function(e){if(e.key==='Enter')op('main')};$('cart2').onclick=function(){op('drz')};$('cart2').onkeydown=function(e){if(e.key==='Enter')op('drz')};$('ov').onclick=cl;$('x').onclick=cl;document.addEventListener('keydown',function(e){if(e.key==='Escape')cl()});
+$('po').onclick=function(){var ok=['cn','cs','ce','cp','ca','cc','cz'].every(function(i){return $(i).value.trim()}),o=$('om');
+if(!items.length){o.style.color='#ff6b6b';o.textContent='Your cart is empty.';return}
+if(!ok||!/^\S+@\S+\.\S+$/.test($('ce').value)){o.style.color='#ff6b6b';o.textContent='Please fill in all delivery details with a valid email.';return}
+o.style.color='#19e66b';o.textContent='Thanks '+$('cn').value.trim()+'! Order #ES'+Math.floor(1000+Math.random()*9000)+' received. (Demo: no payment taken yet.)';carts[mode]=items=[];render()};
+render();
+})();
+</script><script>
+(function(){
+/* PRODUCT DETAILS: add one entry per product, keyed by the exact product name.
+   Example: DETAILS['Product 1']={desc:'Your description',specs:[['Size','10ml'],['Flavour','Mint']],img:'data:image/jpeg;base64,...'}
+   Images must be embedded as data: URIs (published pages block remote images). */
+window.DETAILS=window.DETAILS||{};
+var $=function(i){return document.getElementById(i)},cur=null,L={vapes:'Flavour vape',edibles:'Gummies & edibles',daily:'Daily gear',drops:'DRS Room exclusive'};
+function st(){var b=cur.querySelector('.add');$('pa').disabled=b.disabled;$('pa').textContent=b.disabled?'Sold out':'Add to cart'}
+function open(c){cur=c;var n=c.querySelector('b').textContent,d=DETAILS[n]||{},k=c.closest('[data-k]');
+$('pimg').innerHTML=d.img?'<img src="'+d.img+'" alt="">':c.querySelector('.art').innerHTML;
+$('pk').textContent=L[k&&k.dataset.k]||'Product';$('pn').textContent=n;$('pp').textContent=c.querySelector('.p').firstChild.textContent;
+$('pd').textContent=d.desc||'Product description coming soon.';
+$('ps').innerHTML=(d.specs||[['Size','—'],['Details','—'],['In the box','—']]).map(function(r){return '<div class="sp"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('');
+st();$('pm').classList.add('on')}
+function cl(){$('pm').classList.remove('on')}
+document.addEventListener('click',function(e){var c=e.target.closest&&e.target.closest('.card');if(!c||e.target.closest('.add'))return;open(c)});
+$('pa').onclick=function(){var b=cur.querySelector('.add');if(b.disabled)return;b.click();st();if(!$('pa').disabled){$('pa').textContent='Added \u2713';setTimeout(function(){if(!$('pa').disabled)$('pa').textContent='Add to cart'},1200)}};
+$('px').onclick=cl;$('pm').onclick=function(e){if(e.target===$('pm'))cl()};document.addEventListener('keydown',function(e){if(e.key==='Escape')cl()});
+})();
+</script></body></html>
